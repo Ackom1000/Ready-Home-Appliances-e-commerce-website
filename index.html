@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ready Home Appliances - reliable and affordable home appliances at Tantra Hills, Accra. Simplify your life, Upgrade your Home.">
+  <title>Ready Home Appliances | Simplify your life, Upgrade your Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div class="loader-inner">
+      <p class="loader-small">WELCOME TO</p>
+      <h1 class="loader-title">READY HOME APPLIANCES</h1>
+      <p class="loader-sub">Simplify your life, Upgrade your Home</p>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="site-header" id="siteHeader">
+    <div class="topbar">
+      <span><i class="fa-solid fa-location-dot"></i> Tantra Hills, opposite the SNNIT Flat</span>
+      <span><i class="fa-regular fa-clock"></i> Mon &ndash; Sun, 6:00 PM &ndash; 9:00 PM</span>
+      <a href="tel:+233591922237"><i class="fa-solid fa-phone"></i> +233591922237</a>
+    </div>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#home" class="logo" aria-label="Ready Home Appliances home">
+        <span class="logo-mark"><i class="fa-solid fa-house-chimney"></i></span>
+        <span class="logo-text"><strong>READY HOME</strong><small>APPLIANCES</small></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-item active" data-nav="home">Home</a></li>
+        <li><a href="#products" class="nav-item" data-nav="products">Products</a></li>
+        <li><a href="#categories" class="nav-item" data-nav="categories">Categories</a></li>
+        <li><button type="button" class="nav-item" id="navSearchBtn" aria-label="Open search"><i class="fa-solid fa-magnifying-glass"></i> Search</button></li>
+        <li><a href="#deals" class="nav-item" data-nav="deals">Deals</a></li>
+        <li><a href="#about" class="nav-item" data-nav="about">About Us</a></li>
+        <li><a href="#appointment" class="nav-item" data-nav="appointment">Appointment</a></li>
+        <li><a href="#contact" class="nav-item" data-nav="contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button type="button" class="icon-btn" id="themeToggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+        <button type="button" class="icon-btn" id="settingsBtn" aria-label="Open settings"><i class="fa-solid fa-sliders"></i></button>
+        <button type="button" class="icon-btn" id="favoritesBtn" aria-label="View favorites"><i class="fa-regular fa-heart"></i><span class="badge" id="favCount">0</span></button>
+        <button type="button" class="icon-btn" id="accountBtn" aria-label="Account"><i class="fa-regular fa-user"></i></button>
+        <button type="button" class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart"><i class="fa-solid fa-cart-shopping"></i><span class="badge" id="cartCount">0</span></button>
+        <button type="button" class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div id="searchOverlay" class="overlay search-overlay" role="dialog" aria-modal="true" aria-label="Search products" hidden>
+    <div class="search-panel">
+      <div class="search-head">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="searchInput" placeholder="Search fridge, television, Samsung, fan..." autocomplete="off" aria-label="Search products">
+        </div>
+        <button type="button" class="btn btn-ghost" id="clearSearch">Clear Search</button>
+        <button type="button" class="icon-btn" id="closeSearch" aria-label="Close search"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-filters">
+        <label for="searchCategory">Category
+          <select id="searchCategory"></select>
+        </label>
+        <label for="searchPrice">Price
+          <select id="searchPrice">
+            <option value="all">Any price</option>
+            <option value="0-500">Under &#8375;500</option>
+            <option value="500-1500">&#8375;500 &ndash; &#8375;1,500</option>
+            <option value="1500-3000">&#8375;1,500 &ndash; &#8375;3,000</option>
+            <option value="3000-99999">Above &#8375;3,000</option>
+          </select>
+        </label>
+        <label for="searchSort">Sort
+          <select id="searchSort">
+            <option value="recommended">Recommended</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+          </select>
+        </label>
+      </div>
+      <div class="search-body">
+        <div id="searchSuggestions" class="search-side">
+          <h3>Recent searches</h3>
+          <div id="recentSearches" class="chip-row"></div>
+          <h3>Popular searches</h3>
+          <div id="popularSearches" class="chip-row"></div>
+        </div>
+        <div class="search-results-wrap">
+          <p id="searchCount" class="result-count" aria-live="polite"></p>
+          <div id="searchResults" class="product-grid compact"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Tantra Hills, Accra</p>
+        <h2>READY HOME APPLIANCES</h2>
+        <p class="hero-slogan">"Simplify your life, Upgrade your Home"</p>
+        <p class="hero-sub">Reliable, affordable appliances for your home. Shop online, order on WhatsApp, or visit us.</p>
+        <div class="hero-buttons">
+          <a href="#products" class="btn btn-gold">SHOP NOW</a>
+          <a href="#appointment" class="btn btn-outline">BOOK APPOINTMENT</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        
+        <img src="Assets/ready-home imag.png" alt="Home appliances available at Ready Home Appliances">
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="categories" class="section">
+      <div class="section-head"><h2>Shop by Category</h2><p>Tap a category to filter the products.</p></div>
+      <div id="categoryGrid" class="category-grid"></div>
+    </section>
+
+    <!-- FLASH DEALS -->
+    <section id="deals" class="section deals-section">
+      <div class="section-head row">
+        <div><h2><i class="fa-solid fa-bolt"></i> Flash Deals</h2><p>Limited-time prices on selected appliances.</p></div>
+        <div class="countdown" aria-live="off">
+          <span>FLASH DEAL ENDS IN:</span>
+          <strong id="countdown">00 : 00 : 00</strong>
+        </div>
+      </div>
+      <div id="flashDeals" class="product-grid"></div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="section">
+      <div class="section-head"><h2>Our Products</h2><p>Featured, popular and new arrivals from Ready Home Appliances.</p></div>
+
+      <div class="tabs" role="tablist" aria-label="Product collections">
+        <button type="button" class="tab active" data-collection="all" role="tab">All</button>
+        <button type="button" class="tab" data-collection="featured" role="tab">Featured</button>
+        <button type="button" class="tab" data-collection="popular" role="tab">Popular</button>
+        <button type="button" class="tab" data-collection="new" role="tab">New Arrivals</button>
+        <button type="button" class="tab" data-collection="best" role="tab">Best Sellers</button>
+        <button type="button" class="tab" data-collection="recommended" role="tab">Recommended</button>
+      </div>
+
+      <div class="shop-layout">
+        <aside class="filters" id="filters" aria-label="Product filters">
+          <div class="filters-head">
+            <h3>Filters</h3>
+            <button type="button" class="link-btn" id="resetFilters">Reset</button>
+          </div>
+          <label for="filterCategory">Category<select id="filterCategory"></select></label>
+          <label for="filterBrand">Brand<select id="filterBrand"></select></label>
+          <label for="filterMin">Min price (&#8375;)<input type="number" id="filterMin" min="0" placeholder="0"></label>
+          <label for="filterMax">Max price (&#8375;)<input type="number" id="filterMax" min="0" placeholder="10000"></label>
+          <label for="filterRating">Rating
+            <select id="filterRating">
+              <option value="0">Any rating</option>
+              <option value="4">4 stars &amp; up</option>
+              <option value="4.5">4.5 stars &amp; up</option>
+            </select>
+          </label>
+          <label for="filterStock">Availability
+            <select id="filterStock">
+              <option value="all">All</option>
+              <option value="in">In Stock</option>
+              <option value="low">Low Stock</option>
+            </select>
+          </label>
+        </aside>
+
+        <div class="shop-main">
+          <div class="shop-toolbar">
+            <button type="button" class="btn btn-ghost filter-toggle" id="filterToggle"><i class="fa-solid fa-filter"></i> Filters</button>
+            <p id="productCount" class="result-count" aria-live="polite"></p>
+            <label for="sortSelect" class="sort-label">Sort by
+              <select id="sortSelect">
+                <option value="recommended">Recommended</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="newest">Newest</option>
+              </select>
+            </label>
+          </div>
+          <div id="productGrid" class="product-grid"></div>
+          <div class="load-more-wrap"><button type="button" class="btn btn-navy" id="loadMore">LOAD MORE PRODUCTS</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAVORITES -->
+    <section id="favorites" class="section light-section">
+      <div class="section-head"><h2>Your Favorites</h2><p>Products you saved with the heart button.</p></div>
+      <div id="favoritesGrid" class="product-grid"></div>
+    </section>
+
+    <!-- RECENTLY VIEWED -->
+    <section id="recent" class="section">
+      <div class="section-head"><h2>Recently Viewed</h2><p>Pick up where you left off.</p></div>
+      <div id="recentGrid" class="product-grid"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section light-section">
+      <div class="about-grid">
+        <div>
+          <h2>About Us</h2>
+          <p>Ready Home Appliances provides reliable and affordable appliances for homes in Ghana. From refrigerators and washing machines to fans, cookers and televisions, we help families get the right appliance at a fair price.</p>
+          <p>Visit us at Tantra Hills, opposite the SNNIT Flat, or order online and talk to us on WhatsApp.</p>
+        </div>
+        <div class="why-grid">
+          <article class="why-card"><i class="fa-solid fa-medal"></i><h3>Quality Products</h3><p>Appliances from trusted brands.</p></article>
+          <article class="why-card"><i class="fa-solid fa-tags"></i><h3>Affordable Prices</h3><p>Fair prices for every budget.</p></article>
+          <article class="why-card"><i class="fa-solid fa-handshake"></i><h3>Trusted Service</h3><p>Honest, friendly dealings.</p></article>
+          <article class="why-card"><i class="fa-solid fa-headset"></i><h3>Customer Support</h3><p>Call or WhatsApp us anytime we are open.</p></article>
+          <article class="why-card"><i class="fa-solid fa-bag-shopping"></i><h3>Convenient Shopping</h3><p>Browse, order and book online.</p></article>
+          <article class="why-card"><i class="fa-solid fa-user-tie"></i><h3>Professional Assistance</h3><p>Help choosing the right product.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPOINTMENT -->
+    <section id="appointment" class="section">
+      <div class="section-head"><h2>Book an Appointment</h2><p>Available Monday &ndash; Sunday, 6:00 PM &ndash; 9:00 PM.</p></div>
+      <form id="appointmentForm" class="form-card" novalidate>
+        <div class="form-grid">
+          <label for="apName">Full Name<input type="text" id="apName" required autocomplete="name"><small class="error" data-error-for="apName"></small></label>
+          <label for="apPhone">Telephone Number<input type="tel" id="apPhone" required autocomplete="tel" placeholder="0591922237"><small class="error" data-error-for="apPhone"></small></label>
+          <label for="apEmail">Email<input type="email" id="apEmail" autocomplete="email"><small class="error" data-error-for="apEmail"></small></label>
+          <label for="apDate">Date<input type="date" id="apDate" required><small class="error" data-error-for="apDate"></small></label>
+          <label for="apTime">Preferred Time<select id="apTime" required></select><small class="error" data-error-for="apTime"></small></label>
+          <label for="apPurpose">Purpose of Appointment
+            <select id="apPurpose" required>
+              <option value="">Select purpose</option>
+              <option>Product Consultation</option>
+              <option>Appliance Purchase</option>
+              <option>Product Demonstration</option>
+              <option>Delivery Discussion</option>
+              <option>Installation Discussion</option>
+              <option>General Enquiry</option>
+            </select>
+            <small class="error" data-error-for="apPurpose"></small>
+          </label>
+          <label for="apLocation">Location<input type="text" id="apLocation" placeholder="Your area / town"></label>
+          <label for="apMessage" class="full">Additional Message<textarea id="apMessage" rows="3"></textarea></label>
+        </div>
+        <button type="submit" class="btn btn-navy">Request Appointment</button>
+        <div id="appointmentResult" class="result-box" aria-live="polite" hidden></div>
+      </form>
+    </section>
+
+    <!-- LOCATION + HOURS -->
+    <section id="location" class="section light-section">
+      <div class="section-head"><h2>Find Us</h2></div>
+      <div class="location-grid">
+        <div class="info-card">
+          <p><i class="fa-solid fa-location-dot"></i> Tantra Hills, opposite the SNNIT Flat</p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:+233591922237">+233591922237</a></p>
+          <p><i class="fa-brands fa-whatsapp"></i> <a id="locWhatsapp" href="https://wa.me/233591922237" target="_blank" rel="noopener">Chat on WhatsApp</a></p>
+          <h3>Opening Hours</h3>
+          <ul class="hours">
+            <li><span>MONDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>TUESDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>WEDNESDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>THURSDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>FRIDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>SATURDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+            <li><span>SUNDAY</span><span>6:00 PM &ndash; 9:00 PM</span></li>
+          </ul>
+        </div>
+        <div class="map-box">
+          
+          <iframe title="Ready Home Appliances location map" src="https://www.google.com/maps?q=Tantra%20Hills%20Accra%20Ghana&output=embed"
+        width="100%" height="100%" style="border:0;"  loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"> loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p class="map-note">Map placeholder: add your Google Maps embed link.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="section-head"><h2>Contact Us</h2><p>Send us a message and we will get back to you.</p></div>
+      <div class="contact-grid">
+        <div class="info-card">
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:+233591922237">+233591922237</a></p>
+          <p><i class="fa-solid fa-phone"></i> <a href="tel:+233242038083">+233242038083</a></p>
+          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:naanadoffoe@gmail.com">naanadoffoe@gmail.com</a></p>
+          <p><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/233591922237" target="_blank" rel="noopener">WhatsApp: +233591922237</a></p>
+          <p><i class="fa-solid fa-location-dot"></i> Tantra Hills, opposite the SNNIT Flat</p>
+          <p><i class="fa-regular fa-clock"></i> Mon &ndash; Sun, 6:00 PM &ndash; 9:00 PM</p>
+        </div>
+        <form id="contactForm" class="form-card" novalidate>
+          <label for="ctName">Name<input type="text" id="ctName" required autocomplete="name"><small class="error" data-error-for="ctName"></small></label>
+          <label for="ctPhone">Phone<input type="tel" id="ctPhone" required autocomplete="tel"><small class="error" data-error-for="ctPhone"></small></label>
+          <label for="ctEmail">Email<input type="email" id="ctEmail" autocomplete="email"><small class="error" data-error-for="ctEmail"></small></label>
+          <label for="ctMessage">Message<textarea id="ctMessage" rows="4" required></textarea><small class="error" data-error-for="ctMessage"></small></label>
+          <button type="submit" class="btn btn-navy">Send Message</button>
+          <p id="contactResult" class="result-box" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- SOCIAL -->
+    <section id="social" class="section light-section">
+      <div class="section-head"><h2>Follow Us</h2></div>
+      <div class="social-row">
+        <a href="YOUR_FACEBOOK_URL" class="social facebook" target="_blank" rel="noopener" aria-label="Facebook" data-tip="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="YOUR_INSTAGRAM_URL" class="social instagram" target="_blank" rel="noopener" aria-label="Instagram" data-tip="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="YOUR_TIKTOK_URL" class="social tiktok" target="_blank" rel="noopener" aria-label="TikTok" data-tip="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="YOUR_SNAPCHAT_URL" class="social snapchat" target="_blank" rel="noopener" aria-label="Snapchat" data-tip="Snapchat"><i class="fa-brands fa-snapchat"></i></a>
+        <a href="https://wa.me/233591922237" class="social whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp" data-tip="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h3>READY HOME APPLIANCES</h3>
+        <p>"Simplify your life, Upgrade your Home"</p>
+        <p><i class="fa-regular fa-clock"></i> Monday &ndash; Sunday<br>6:00 PM &ndash; 9:00 PM</p>
+        <p><i class="fa-solid fa-location-dot"></i> Tantra Hills, opposite the SNNIT Flat</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#appointment">Appointments</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="#contact">Help</a></li>
+          <li><a href="#contact">Order Support</a></li>
+          <li><a href="https://wa.me/233591922237" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social Media</h4>
+        <ul>
+          <li><a href="YOUR_FACEBOOK_URL" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="YOUR_INSTAGRAM_URL" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="YOUR_TIKTOK_URL" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="YOUR_SNAPCHAT_URL" target="_blank" rel="noopener">Snapchat</a></li>
+          <li><a href="https://wa.me/233591922237" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ready Home Appliances. All Rights Reserved. WEBSITE DEVELOPED BY CALEB ACKOM</p>
+      
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div id="cartOverlay" class="scrim" hidden></div>
+  <aside id="cartDrawer" class="drawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-head"><h2>Your Cart</h2><button type="button" class="icon-btn" id="closeCart" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-foot">
+      <div class="totals">
+        <p><span>Subtotal</span><strong id="cartSubtotal">&#8375;0.00</strong></p>
+        <p><span>Delivery</span><strong id="cartDelivery">&#8375;0.00</strong></p>
+        <p><span>Discount</span><strong id="cartDiscount">&#8375;0.00</strong></p>
+        <p class="grand"><span>TOTAL</span><strong id="cartTotal">&#8375;0.00</strong></p>
+      </div>
+      <button type="button" class="btn btn-gold block" id="checkoutBtn">Checkout</button>
+      <button type="button" class="btn btn-ghost block" id="clearCart">Clear Cart</button>
+    </div>
+  </aside>
+
+  <!-- QUICK VIEW / PRODUCT DETAILS MODAL -->
+  <div id="productModal" class="overlay modal" role="dialog" aria-modal="true" aria-labelledby="pmName" hidden>
+    <div class="modal-card wide">
+      <button type="button" class="icon-btn modal-close" id="closeProduct" aria-label="Close product"><i class="fa-solid fa-xmark"></i></button>
+      <div class="pm-grid">
+        <div class="pm-image"><img id="pmImage" src="" alt=""></div>
+        <div class="pm-info">
+          <p class="pm-meta"><span id="pmBrand"></span> &middot; <span id="pmCategory"></span></p>
+          <h2 id="pmName"></h2>
+          <p class="pm-rating"><span id="pmStars"></span> <span id="pmRatingText"></span></p>
+          <p class="pm-price"><strong id="pmPrice"></strong> <s id="pmOld"></s> <span id="pmDiscount" class="discount-badge"></span></p>
+          <p id="pmStock" class="stock"></p>
+          <p id="pmDesc" class="pm-desc"></p>
+          <div class="qty-row">
+            <span>Quantity</span>
+            <div class="qty">
+              <button type="button" id="pmMinus" aria-label="Decrease quantity">&minus;</button>
+              <input type="number" id="pmQty" value="1" min="1" max="20" aria-label="Quantity">
+              <button type="button" id="pmPlus" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div class="pm-buttons">
+            <button type="button" class="btn btn-navy" id="pmAdd">Add To Cart</button>
+            <button type="button" class="btn btn-gold" id="pmBuy">Buy Now</button>
+            <a class="btn btn-whatsapp" id="pmWhatsapp" href="https://wa.me/233591922237" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews">
+        <h3>Customer Reviews</h3>
+        <p class="review-summary"><strong id="avgRating">4.5</strong> average from <span id="reviewCount">0</span> reviews</p>
+        <div id="reviewList"></div>
+        <form id="reviewForm" novalidate>
+          <div class="star-input" id="starInput" role="radiogroup" aria-label="Your rating">
+            <button type="button" data-star="1" aria-label="1 star">&#9733;</button>
+            <button type="button" data-star="2" aria-label="2 stars">&#9733;</button>
+            <button type="button" data-star="3" aria-label="3 stars">&#9733;</button>
+            <button type="button" data-star="4" aria-label="4 stars">&#9733;</button>
+            <button type="button" data-star="5" aria-label="5 stars">&#9733;</button>
+          </div>
+          <label for="reviewName">Your name<input type="text" id="reviewName" required></label>
+          <label for="reviewText">Your review<textarea id="reviewText" rows="3" required></textarea></label>
+          <button type="submit" class="btn btn-navy">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div id="checkoutModal" class="overlay modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" hidden>
+    <div class="modal-card wide">
+      <button type="button" class="icon-btn modal-close" id="closeCheckout" aria-label="Close checkout"><i class="fa-solid fa-xmark"></i></button>
+      <h2 id="checkoutTitle">Checkout</h2>
+      <div class="checkout-grid">
+        <form id="checkoutForm" class="form-card flat" novalidate>
+          <label for="coName">Full Name<input type="text" id="coName" required autocomplete="name"><small class="error" data-error-for="coName"></small></label>
+          <label for="coPhone">Telephone Number<input type="tel" id="coPhone" required autocomplete="tel"><small class="error" data-error-for="coPhone"></small></label>
+          <label for="coEmail">Email<input type="email" id="coEmail" autocomplete="email"><small class="error" data-error-for="coEmail"></small></label>
+          <label for="coLocation">Location<input type="text" id="coLocation" required><small class="error" data-error-for="coLocation"></small></label>
+          <label for="coHouse">House Number<input type="text" id="coHouse"></label>
+          <label for="coAddress">Delivery Address<input type="text" id="coAddress" required><small class="error" data-error-for="coAddress"></small></label>
+          <label for="coNotes">Additional Instructions<textarea id="coNotes" rows="3"></textarea></label>
+          <div class="checkout-buttons">
+            <button type="submit" class="btn btn-gold">Place Order</button>
+            <button type="button" class="btn btn-whatsapp" id="coWhatsapp"><i class="fa-brands fa-whatsapp"></i> Order on WhatsApp</button>
+          </div>
+          <p id="checkoutResult" class="result-box" aria-live="polite" hidden></p>
+        </form>
+        <div class="order-summary">
+          <h3>ORDER SUMMARY</h3>
+          <div id="summaryItems"></div>
+          <div class="totals">
+            <p><span>Subtotal</span><strong id="sumSubtotal">&#8375;0.00</strong></p>
+            <p><span>Delivery</span><strong id="sumDelivery">&#8375;0.00</strong></p>
+            <p class="grand"><span>Total</span><strong id="sumTotal">&#8375;0.00</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS PANEL -->
+  <div id="settingsPanel" class="settings-panel" role="dialog" aria-label="Settings" hidden>
+    <div class="drawer-head"><h3>Settings</h3><button type="button" class="icon-btn" id="closeSettings" aria-label="Close settings"><i class="fa-solid fa-xmark"></i></button></div>
+    <p class="setting-label">Theme</p>
+    <div class="theme-buttons">
+      <button type="button" class="btn btn-ghost" id="lightBtn">LIGHT</button>
+      <button type="button" class="btn btn-ghost" id="darkBtn">DARK</button>
+    </div>
+    <p class="setting-label">Brightness: <span id="brightnessValue">100%</span></p>
+    <div class="theme-buttons">
+      <button type="button" class="btn btn-ghost" id="brightDown" aria-label="Decrease brightness">&minus;</button>
+      <button type="button" class="btn btn-ghost" id="brightReset">Reset</button>
+      <button type="button" class="btn btn-ghost" id="brightUp" aria-label="Increase brightness">+</button>
+    </div>
+  </div>
+
+  <!-- CHATBOT -->
+  <button type="button" class="float-btn chat-fab" id="chatFab" aria-label="Open chat assistant">&#128172;</button>
+  <section id="chatWindow" class="chat-window" aria-label="Ready Assistant chat" hidden>
+    <div class="chat-head"><strong>Ready Assistant</strong><button type="button" class="icon-btn" id="closeChat" aria-label="Close chat"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+    <div class="quick-questions" id="quickQuestions">
+      <button type="button" data-q="products">Products</button>
+      <button type="button" data-q="location">Location</button>
+      <button type="button" data-q="hours">Opening Hours</button>
+      <button type="button" data-q="whatsapp">WhatsApp</button>
+      <button type="button" data-q="appointment">Appointment</button>
+      <button type="button" data-q="order">Order Help</button>
+    </div>
+    <form id="chatForm" class="chat-form">
+      <input type="text" id="chatInput" placeholder="Type your question..." aria-label="Type your question" autocomplete="off">
+      <button type="submit" class="btn btn-navy" aria-label="Send">Send</button>
+    </form>
+  </section>
+
+  <!-- FLOATING WHATSAPP + BACK TO TOP -->
+  <a href="https://wa.me/233591922237" id="floatWhatsapp" class="float-btn whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  <button type="button" class="float-btn top-fab" id="backToTop" aria-label="Back to top" hidden><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="bottom-nav" aria-label="Mobile shortcuts">
+    <a href="#home"><i class="fa-solid fa-house"></i><span>Home</span></a>
+    <button type="button" id="bnSearch"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></button>
+    <a href="#appointment"><i class="fa-regular fa-calendar-check"></i><span>Book</span></a>
+    <button type="button" id="bnCart"><i class="fa-solid fa-cart-shopping"></i><span>Cart</span></button>
+  </nav>
+
+  <!-- TOASTS -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  
+  <div id="productSource" hidden>
+
+    
+    <article class="product-source" data-id="1" data-image="Assets/double-door.jpeg" data-name="Nasco Fridge Double-Door 210L Dispenser" data-brand="Pearl" data-category="Refrigerators" data-price="4000" data-tags="featured,recommended" data-keywords="fridge refrigerator double door dispenser" data-desc="Double-door fridge, 210L, with dispenser."></article>
+
+    
+<article class="product-source" data-id="40" data-image="Assets/asano-sound-systems.jpeg" data-name="Asano-Sound-Systems" data-brand="Asano" data-category="Sound Systems" data-price="4000" data-tags="featured,recommended" data-keywords="Sound System,Speakers,Audio" data-desc="Powerful Sound system for clear and enjoyable music."></article>
+    
+    <article class="product-source" data-id="2" data-image="Assets/chest-freezer.jpeg" data-name="Nasco Chest Freezer Single Door 251L Silver" data-brand="Nasco" data-category="Freezers" data-price="2650" data-tags="popular,best" data-keywords="freezer chest deep freezer" data-desc="Single-door chest freezer, 251L, silver."></article>
+
+    
+    <article class="product-source" data-id="3" data-image="Assets/display-fridge.jpeg" data-name="Nasco display fridge" data-brand="Nasco" data-category="Refrigerators" data-price="1200" data-tags="popular" data-keywords="Nasco display fridge" data-desc="Powerful and efficient fridge to show case foods and drinks"></article>
+
+    
+    <article class="product-source" data-id="4" data-image="Assets/washing-machine.jpeg" data-name="Nasco 8kg-washing-machine" data-brand="Nasco" data-category="Washing Machines" data-price="350" data-tags="popular,best" data-keywords="washing Machine,washer laundry,Home Appliances" data-desc="Efficient washing machine for easy and convenient laundry."></article>
+
+    
+    <article class="product-source" data-id="5" data-image="Assets/ceiling-fan-brown.jpeg" data-name="Binatone ceiling-Fan" data-brand="Binatone" data-category="ceiling-Fan" data-price="3200" data-tags="featured,recommended" data-keywords="Binatone ceiling-Fan" data-desc="Binatone ceiling-Fan Powerful cooling and comfortable airflow for your home"></article>
+
+    
+    <article class="product-source" data-id="6" data-image="Assets/washing-machine-semi-automatic.jpeg" data-name="Nasco-semi-automatic-washing-machine" data-brand="Nasco" data-category="Washing Machines" data-price="1700" data-tags="popular" data-keywords="Nasco-semi-automatic-washing-machine" data-desc="semi Nasco-semi-automatic-washing-machine-Easy and efficient washing machine for home"></article>
+
+    
+    <article class="product-source" data-id="7" data-image="Assets/asano-sound-systems.jpeg" data-name="Asano-Sound-Systems" data-brand="Asano" data-category="Asano-Sound-Systems" data-price="2500" data-tags="recommended" data-keywords="Asano-Sound-Systems,Asano speaker,sound system,home audio,Bluetooth speaker" data-desc="Asano Sound System-Powerful sound and clear audio for your home"></article>
+
+    
+    <article class="product-source" data-id="8" data-image="Assets/swallow-maker.jpeg" data-name="Swallow marker" data-brand="Nasco" data-category="Cookers" data-price="1750" data-tags="recommended" data-keywords="swallow maker,swallow maker machine,food processor,fufu maker,kitchen appliance" data-desc="swallow marker-Easy and fast preparation of smooth,delicious swallow"></article>
+
+    
+    <article class="product-source" data-id="9" data-image="Assets/binatone-blender.jpeg" data-name="Binatone-blender" data-brand="Binatone" data-category="Blender" data-price="300" data-tags="Popular" data-keywords="Binatone blender,kitchen blender,smoothie blender" data-desc="Binatone Blender-Powerful and easy blending for your kitchen"></article>
+
+    
+    <article class="product-source" data-id="10" data-image="Assets/coffee-maker.jpeg" data-name="coffee-maker" data-brand="Binatone" data-category="Small Appliances" data-price="350" data-tags="Popular" data-keywords="coffee Maker,coffee Machine,coffee Brewer,Kitchen Appliance" data-desc="Easy to use coffee maker for preparing fresh and delicious coffee at home in the office"></article>
+
+    
+    <article class="product-source" data-id="11" data-image="Assets/samsung-75.jpeg" data-name="samsung Television 75-inch" data-brand="Samsung" data-category="Televisions" data-price="1004" data-tags="popular" data-keywords="television tv 75 inch" data-desc="75-inch television."></article>
+
+    
+    <article class="product-source" data-id="12" data-image="Assets/tv-66.jpeg" data-name="Samsung LED Television 65-inch Satellite" data-brand="Samsung" data-category="Televisions" data-price="1400" data-tags="featured,best" data-keywords="television tv samsung led satellite 65 inch" data-desc="65-inch LED television with satellite."></article>
+
+    
+    <article class="product-source" data-id="13" data-image="Assets/juice-maker.jpeg" data-name="Binatone Juicer Maker 1000W" data-brand="Binatone" data-category="Kitchen Appliances" data-price="550" data-tags="featured,best" data-keywords="juicer juice maker blender" data-desc="Juicer maker, 1000W."></article>
+
+    
+    <article class="product-source" data-id="14" data-image="Assets/swallow-maker.jpeg" data-name="Binatone Fufu Maker 6Ltrs KC6000" data-brand="Binatone" data-category="Kitchen Appliances" data-price="800" data-tags="popular" data-keywords="fufu maker pounder" data-desc="6 litre fufu maker, model KC6000."></article>
+
+    
+    <article class="product-source" data-id="15" data-image="Assets/Akai-2-burner-stove.jpeg" data-name="Binatone or Akai two-burner-stove" data-brand="Akai" data-category="Cookers" data-price="350" data-tags="popular" data-keywords="Binatone or Akai-two-burner-stove" data-desc="Two burner electric hot-plate."></article>
+
+    
+    <article class="product-source" data-id="16" data-image="Assets/samsung-1.5-split.jpeg" data-name="Samsung 1.5HP Split Air Conditioners" data-brand="Samsung" data-category="Air Conditioners" data-price="3300" data-tags="featured,recommended" data-keywords="air conditioner aircon ac split cooling" data-desc="Split air conditioners, 1.5HP."></article>
+
+    
+    <article class="product-source" data-id="17" data-image="Assets/4-burner-50by50.jpeg" data-name="Nasco Four Burner 50x50 Gas Cooker" data-brand="Bruhm or Nasco" data-category="Cookers" data-price="1900" data-tags="" data-keywords="cooker gas stove burner standing" data-desc="Four burner 50x50 gas cooker."></article>
+
+    
+    <article class="product-source" data-id="18" data-image="Assets/air-fryer.jpeg" data-name="Kenwood Air Fryer 3.8Ltrs" data-brand="Kenwood" data-category="Air Fryers" data-price="120" data-tags="popular" data-keywords="air fryer fryer" data-desc="3.8 litre air fryer."></article>
+
+    
+    <article class="product-source" data-id="19" data-image="Assets/ceiling-fan-gold.jpeg" data-name="Binatone Ceiling Fan 26 inch" data-brand="Binatone" data-category="Ceiling Fans" data-price="120" data-tags="popular,best" data-keywords="ceiling fan fan" data-desc="24 inch ceiling fan."></article>
+
+    
+    <article class="product-source" data-id="20" data-image="Assets/samsung-microwave.jpeg" data-name="Samsung Microwave Oven 20Ltrs White" data-brand="Samsung" data-category="Microwaves" data-price="120" data-tags="featured,recommended" data-keywords="microwave oven" data-desc="20 litre microwave oven, white."></article>
+
+    
+    <article class="product-source" data-id="21" data-image="Assets/chest-freezer-large.jpeg" data-name="Binatone Chest Freezer" data-brand="Binatone" data-category="Freezers" data-price="550" data-tags="chest-freezer,freezer,deep freezer,home appliance,food storage" data-keywords="ceiling fan fan" data-desc="Large chest-freezer-large for storing and keeping food frozen"></article>
+
+    
+    <article class="product-source" data-id="22" data-image="Assets/binatone-kettle.jpeg" data-name="Binatone Kettle 1.7Ltrs" data-brand="Binatone" data-category="Kettles" data-price="350" data-tags="best" data-keywords="kettle electric boil water" data-desc="1.7 litre kettle."></article>
+
+    
+    <article class="product-source" data-id="23" data-image="Assets/keenwood-microwave.jpeg" data-name="Kenwood Microwave Oven 22Ltrs Digital Black" data-brand="Kenwood" data-category="Microwaves" data-price="850" data-tags="" data-keywords="microwave oven digital" data-desc="22 litre digital microwave oven, black."></article>
+
+    
+    <article class="product-source" data-id="24" data-image="Assets/sandwich-maker.jpeg" data-name="Binatone Sandwich Maker" data-brand="Binatone" data-category="Kitchen Appliances" data-price="350" data-tags="best" data-keywords="sandwich maker toaster" data-desc="Sandwich maker."></article>
+
+    
+    <article class="product-source" data-id="25" data-image="Assets/crompton-ceiling-fan.jpeg" data-name="Crompton Aura Ceiling Fan Long Blade 47 inch" data-brand="Crompton" data-category="Ceiling Fans" data-price="470" data-tags="best" data-keywords="ceiling fan fan long blade" data-desc="47 inch long blade ceiling fan."></article>
+
+    
+    <article class="product-source" data-id="26" data-image="Assets/binatone-standing-fan.jpeg" data-name="Binatone Designer Standing Fan" data-brand="Binatone" data-category="Fans" data-price="250" data-tags="popular" data-keywords="standing fan fan stand" data-desc="Designer standing fan."></article>
+
+    
+    <article class="product-source" data-id="27" data-image="Assets/philips-iron.jpeg" data-name="Akai Steam Iron 2200W Cordless" data-brand="Akai" data-category="Irons" data-price="280" data-tags="popular" data-keywords="iron steam iron cordless pressing" data-desc="Cordless steam iron, 2200W."></article>
+
+    
+    <article class="product-source" data-id="28" data-image="Assets/blender-red.jpeg" data-name="Decakila Blender 2Ltrs 1600W" data-brand="Decakila" data-category="Blenders" data-price="350" data-tags="popular,best" data-keywords="blender smoothie" data-desc="2 litre blender, 1600W."></article>
+
+    
+    <article class="product-source" data-id="29" data-image="Assets/water-dispenser.jpeg" data-name="Nasco Water-dispenser" data-brand="Nasco" data-category="Water Dispensers" data-price="1150" data-tags="recommended" data-keywords="Water Dispenser,Drinking Water,Home Appliances" data-desc="Convenient water dispenser for clean and easy drinking water."></article>
+
+    
+    <article class="product-source" data-id="30" data-image="Assets/multi-purpose-cooker.jpeg" data-name="Multipurpose Electric Cooking Pan" data-brand="Generic" data-category="Kitchen Appliances" data-price="350" data-tags="popular,recommended" data-keywords="cooking pan electric cooker multipurpose" data-desc="Multipurpose electric cooking pan."></article>
+
+    
+    <article class="product-source" data-id="31" data-image="Assets/hisense.jpeg" data-name="Hisense Digital Television 32-inch" data-brand="Hisense" data-category="Televisions" data-price="120" data-tags="new" data-keywords="television tv digital 32 inch" data-desc="32-inch digital television."></article>
+
+    
+    <article class="product-source" data-id="32" data-image="Assets/multi-blender.jpeg" data-name="Kenwood Two-in-One Ice-Crusher and Electric Blender" data-brand="Kenwood" data-category="Blenders" data-price="650" data-tags="" data-keywords="blender ice crusher" data-desc="Two-in-one ice-crusher and electric blender."></article>
+
+    
+    <article class="product-source" data-id="33" data-image="Assets/pressure-cooker.jpeg" data-name="Moulinex Electric Pressure Cooker 6Ltrs 1000W" data-brand="Moulinex" data-category="Kitchen Appliances" data-price="700" data-tags="recommended" data-keywords="pressure cooker electric cooker" data-desc="6 litre electric pressure cooker, 1000W."></article>
+
+    
+    <article class="product-source" data-id="34" data-image="Assets/ceiling-fan-gold.jpeg" data-name="Binatone Short Blade Ceiling Fan 27 inch" data-brand="Binatone" data-category="Ceiling Fans" data-price="400" data-tags="new" data-keywords="ceiling fan fan short blade" data-desc="24 inch short blade ceiling fan."></article>
+
+    
+    <article class="product-source" data-id="35" data-image="Assets/blender-2.jpeg" data-name="Binatone Blender 1.5Ltrs with Stir Stick 350W" data-brand="Binatone" data-category="Blenders" data-price="530" data-tags="new,popular" data-keywords="blender stir stick" data-desc="1.5 litre blender with stir stick, 350W."></article>
+
+    
+    <article class="product-source" data-id="36" data-image="Assets/samsung-55.jpeg" data-name="Samsung QLED TV 55 inch Sat Smart" data-brand="Samsung" data-category="Televisions" data-price="4950" data-tags="new,featured" data-keywords="television tv samsung qled smart satellite 55 inch" data-desc="55-inch QLED smart TV with satellite."></article>
+
+    
+    <article class="product-source" data-id="37" data-image="Assets/samsung-2.5.jpeg" data-name="Samsung Air-Conditioner 2.5HP Split" data-brand="Samsung" data-category="Air Conditioners" data-price="5500" data-tags="new,featured" data-keywords="air conditioner aircon ac split samsung cooling" data-desc="2.5HP split air conditioner."></article>
+
+    
+    <article class="product-source" data-id="38" data-image="Assets/washing-machine-stand.jpeg" data-name="Quality Air-Conditioner Stand White" data-brand="Generic" data-category="Small Appliances" data-price="150" data-tags="new" data-keywords="air conditioner stand aircon bracket" data-desc="Air-conditioner stand, white."></article>
+
+    
+    <article class="product-source" data-id="39" data-image="Assets/tv-stand.jpeg" data-name="Quality Television Stand" data-brand="Generic" data-category="Small Appliances" data-price="150" data-tags="new" data-keywords="television tv stand" data-desc="Television stand."></article>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
